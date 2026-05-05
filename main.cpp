@@ -125,7 +125,7 @@ bool dfs(int r, int c, const vector<vector<int>>& maze,
     // Your code here
     N = maze.size();
     M = maze[0].size();
-    
+
     if (r >= N || r < 0 || c >= M || c < 0) {
         return false; // Out of bounds
     }
@@ -136,6 +136,12 @@ bool dfs(int r, int c, const vector<vector<int>>& maze,
 
     if (visited[r][c]) {
         return false; //Already visited
+    }
+
+    visited[r][c] = true; // Mark current cell as visited
+
+    if (r == exit_r && c == exit_c) {
+        return true; // Found the exit
     }
 }
 

@@ -143,6 +143,19 @@ bool dfs(int r, int c, const vector<vector<int>>& maze,
     if (r == exit_r && c == exit_c) {
         return true; // Found the exit
     }
+
+    for (int i = 0; i < 4; i++) {
+        int new_r = r + dr[i]; // Calculates new row
+        int new_c = c + dc[i]; //Calculates new column
+
+        parent_r[new_r][new_c] = r;  //Stores current cell as parent of new cell
+        parent_c[new_r][new_c] = c;  //Stores current cell as parent of new cell
+        if (dfs(new_r, new_c, maze, visited, parent_r, parent_c, exit_r, exit_c)) { //Recursively calls DFS on the new cell
+            return true; 
+        }
+    }
+
+    return false; // No path found from this cell
 }
 
 

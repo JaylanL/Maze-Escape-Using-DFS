@@ -123,8 +123,8 @@ bool dfs(int r, int c, const vector<vector<int>>& maze,
          vector<vector<int>>& parent_c,
          int exit_r, int exit_c) {
     // Your code here
-    N = maze.size();
-    M = maze[0].size();
+    int N = maze.size();
+    int M = maze[0].size();
 
     if (r >= N || r < 0 || c >= M || c < 0) {
         return false; // Out of bounds
@@ -148,10 +148,12 @@ bool dfs(int r, int c, const vector<vector<int>>& maze,
         int new_r = r + dr[i]; // Calculates new row
         int new_c = c + dc[i]; //Calculates new column
 
-        parent_r[new_r][new_c] = r;  //Stores current cell as parent of new cell
-        parent_c[new_r][new_c] = c;  //Stores current cell as parent of new cell
-        if (dfs(new_r, new_c, maze, visited, parent_r, parent_c, exit_r, exit_c)) { //Recursively calls DFS on the new cell
-            return true; 
+        if (new_r >= 0 && new_r < N && new_c >= 0 && new_c < M) {
+            parent_r[new_r][new_c] = r;  //Stores current cell as parent of new cell
+            parent_c[new_r][new_c] = c;  //Stores current cell as parent of new cell
+            if (dfs(new_r, new_c, maze, visited, parent_r, parent_c, exit_r, exit_c)) { //Recursively calls DFS on the new cell
+                return true; 
+            }
         }
     }
 
@@ -196,17 +198,17 @@ int main() {
     // STUDENT WORK:
     // Call your DFS, track visited, and fill parent_r and parent_c
     // ------------------------------------------------------
-    // bool found = dfs(ent_r, ent_c, maze, visited, parent_r, parent_c, exit_r, exit_c);
+    bool found = dfs(ent_r, ent_c, maze, visited, parent_r, parent_c, exit_r, exit_c);
 
     // ------------------------------------------------------
     // STUDENT WORK:
     // If found, print the path
     // ------------------------------------------------------
-    // if (found) {
-    //     printPath(exitcell, parent_r, parent_c, ent_r, ent_c);
-    // } else {
-    //     cout << "\nNo path exists.\n";
-    // }
+    if (found) {
+        printPath(exitcell, parent_r, parent_c, ent_r, ent_c);
+    } else {
+        cout << "\nNo path exists.\n";
+    }
 
     return 0;
 }
